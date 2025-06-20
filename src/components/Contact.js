@@ -28,9 +28,6 @@ const handleSubmit = async (e) => {
   setButtonText("Sending...");
 
   try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
-
     const formData = new FormData();
     formData.append("access_key", "e914bcce-94f5-410b-b4a7-aeed59e9a02e");
     formData.append("subject", "New Contact From Portfolio");
@@ -42,21 +39,19 @@ const handleSubmit = async (e) => {
     const response = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
       body: formData,
-      signal: controller.signal,
     });
 
-    clearTimeout(timeoutId);
-
     const result = await response.json();
+    console.log("Web3Forms result:", result);
 
     if (result.success) {
       setStatus({ success: true, message: "Message sent successfully!" });
       setFormDetails(formInitialDetails);
     } else {
-      setStatus({ success: false, message: result.message || "Submission failed." });
+      setStatus({ success: false, message: result.message || "Something went wrong." });
     }
   } catch (error) {
-    console.error("Error submitting form:", error);
+    console.error("Submission error:", error);
     setStatus({ success: false, message: "Something went wrong. Please try again later." });
   }
 
