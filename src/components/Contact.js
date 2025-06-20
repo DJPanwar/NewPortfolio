@@ -24,9 +24,10 @@ export const Contact = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setButtonText("Sending...");
+  e.preventDefault();
+  setButtonText("Sending...");
 
+  try {
     const formData = new FormData();
     formData.append("access_key", "e914bcce-94f5-410b-b4a7-aeed59e9a02e");
     formData.append("subject", "New Contact From Portfolio");
@@ -37,7 +38,7 @@ export const Contact = () => {
 
     const response = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
-      body: formData
+      body: formData,
     });
 
     const result = await response.json();
@@ -46,11 +47,15 @@ export const Contact = () => {
       setStatus({ success: true, message: "Message sent successfully!" });
       setFormDetails(formInitialDetails);
     } else {
-      setStatus({ success: false, message: "Something went wrong. Please try again later." });
+      setStatus({ success: false, message: result.message || "Something went wrong." });
     }
+  } catch (error) {
+    console.error("Form submit error:", error);
+    setStatus({ success: false, message: "Network error. Please try again." });
+  }
 
-    setButtonText("Send");
-  };
+  setButtonText("Send");
+};
 
   return (
     <section className="contact" id="connect">
