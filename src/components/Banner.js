@@ -58,12 +58,16 @@ export const Banner = () => {
                   <span className="tagline">Welcome to my Portfolio</span>
                   <h1>{`Hi! I'm Deepak Panwar`} </h1>
                   <h1>{`I Am A `}
-                    <span className="txt-rotate" dataPeriod="1000" data-rotate='[ "Web Developer", "Logo Designer", "Software Developer." ]'><span className="wrap">{text}</span></span>
+                    <span className="txt-rotate" dataPeriod="1000" data-rotate='[ "Web Developer", "Graphic Designer", "Software Developer." ]'><span className="wrap">{text}</span></span>
                   </h1>
                   <p>An asipiring Software Developer
                     having interest in various software
                     technologies.</p>
-                  <a href="https://drive.google.com/file/d/10BypVKanK8us51bL2zPwns8oQanzIrnk/view?usp=drivesdk"><button onClick={() => console.log('connect')}>Download CV <ArrowRightCircle size={25} /></button></a>
+                  <a href="/Deepak_Panwar_resume.pdf" download>
+                    <button>
+                      Download CV <ArrowRightCircle size={25} />
+                    </button>
+                  </a>
                 </div>}
             </TrackVisibility>
           </Col>
